@@ -8,6 +8,11 @@
 
 本项目使用Docker Buildx构建全平台镜像，支持linux/386、linux/amd64、linux/armv6、linux/armv7、linux/armv8、linux/ppc64le、linux/s390x框架，并使用openjdk:8u212-jre-alpine3.9作为底包
 
+[测试版本](https://hub.docker.com/r/zzcabc/danmuji-test)采用openjdk:8u212-jre-alpine3.9作为底包
+
+使用GitHub Action中国时间 **0:00** 自动拉取[BanqiJane/Bilibili_Danmuji](https://github.com/BanqiJane/Bilibili_Danmuji)的源码进行构建Docker镜像，**但当源码版本和Docker镜像版本一致将不会构建镜像**，由源码构建时间大概6分钟
+
+[B站用户西凉君君提供的Docker镜像地址](https://registry.hub.docker.com/r/xilianghe/danmuji)
 
 # 后期将要更新
 **之后会删除部分架构的支持，仅保留amd64，arm64，以及可能会保留arm32**
@@ -16,12 +21,7 @@
 
 **arm32将继续使用8u212**
 
-
-[测试版本](https://hub.docker.com/r/zzcabc/danmuji-test)采用openjdk:8u212-jre-alpine3.9作为底包
-
-使用GitHub Action中国时间 **0:00** 自动拉取[BanqiJane/Bilibili_Danmuji](https://github.com/BanqiJane/Bilibili_Danmuji)的源码进行构建Docker镜像，**但当源码版本和Docker镜像版本一致将不会构建镜像**，由源码构建时间大概6分钟
-
-[B站用户西凉君君提供的Docker镜像地址](https://registry.hub.docker.com/r/xilianghe/danmuji)
+不影响使用
 
 # 使用方式
 
