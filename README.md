@@ -8,6 +8,8 @@
 
 本项目使用Docker Buildx构建全平台镜像，支持linux/386、linux/amd64、linux/armv6、linux/armv7、linux/armv8、linux/ppc64le、linux/s390x框架，并使用openjdk:8u212-jre-alpine3.9作为底包
 
+
+# 后期将要更新
 **之后会删除部分架构的支持，仅保留amd64，arm64，以及可能会保留arm32**
 
 **此外，Java版本将会更新至8u322，该版本仅支持amd64和arm64**
