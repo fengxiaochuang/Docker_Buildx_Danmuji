@@ -87,7 +87,7 @@ jobs:
       - name: Build with Gradle
         if: ${{ steps.prepare.outputs.dockerhub_version != steps.prepare.outputs.github_version }}
         run: |
-          sudo apt-get install git
+          sudo apt-get install -y git
           git clone https://github.com/BanqiJane/Bilibili_Danmuji.git
           cd Bilibili_Danmuji
           sudo chmod +x ./gradlew
@@ -100,7 +100,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           platforms: linux/386,linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/ppc64le,linux/s390x
-          file: ./Dockerfile.local
+          file: ./Dockerfile.Alpine
           context: .
           push: true
           tags: |
