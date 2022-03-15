@@ -14,7 +14,7 @@
 
 [B站用户西凉君君提供的Docker镜像地址](https://registry.hub.docker.com/r/xilianghe/danmuji)
 
-# 后期将要更新
+# 后期将要更新(预计在4月1日)
 **之后会删除部分架构的支持，仅保留amd64，arm64，以及可能会保留arm32**
 
 **此外，Java版本将会更新至8u322，该版本仅支持amd64和arm64**
