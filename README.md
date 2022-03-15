@@ -25,7 +25,7 @@
 
 # 使用方式
 
-### DockerHub镜像
+## DockerHub镜像
 
 ```sh
 docker run -d \
@@ -47,8 +47,7 @@ docker run -d \
     zzcabc/danmuji:latest
 ```
 
-
-### 阿里镜像仓库(将在2.4.8之后版本启用)
+## 阿里镜像仓库
 
 ```sh
 docker run -d \
@@ -61,6 +60,49 @@ docker run -d \
     -v 本机路径:/danmuji/log \
     registry.cn-hangzhou.aliyuncs.com/zzcabc/danmuji:latest
 ```
+
+## docker-compose方式
+
+**确保你安装了docker-compose，并且可以使用**
+
+使用下面命令获取本项目的docker-compose
+
+可能因为CDN的原因无法获取
+
+`wget https://cdn.jsdelivr.net/gh/zzcabc/Docker_Buildx_Danmuji@main/docker-compose.yaml`
+
+之后通过nano或者vim命令修改docker-compose.yaml
+
+最后使用 `docker-compose up -d` 命令启动
+
+你可以使用docker-compose启动多个容器
+
+添加多个service
+```yaml
+  danmuji: # 变更命名
+    image: zzcabc/danmuji
+    container_name: danmuji # 变更容器名
+    restart: always
+    privileged: true
+    environment:
+      TZ: Asia/Shanghai
+      JAVA_OPTS: "-Xms64m -Xmx128m"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "23333:23333" # 变更端口
+    volumes:
+      - /danmuji/Danmuji_log:/danmuji/Danmuji_log
+      - /danmuji/guardFile:/danmuji/guardFile
+      - /danmuji/log:/danmuji/log
+    logging:
+      driver: json-file
+      options:
+        max-size: "1m"
+        max-file: "2"
+```
+
 # 更新容器方式
 
 ## 方案一——手动更新
@@ -76,6 +118,7 @@ docker run -d \
 # 映射路径说明
 
 此说明对应Docker容器内
+
 | Docker运行参数 | 说明 |  
 | --- | --- |
 | `run -d` | 后台的方式保持运行 |
@@ -85,7 +128,6 @@ docker run -d \
 | `/danmuji/Danmuji_log` | 弹幕姬保存弹幕文件夹(非必须映射) |
 | `/danmuji/guardFile` | 弹幕姬上舰私信文件夹(非必须映射) |
 | `/danmuji/log` | 弹幕姬日志文件夹(非必须映射) |
-
 
 ### ~~注意：本项目会拉取releases最新的danmuji.zip构建镜像,因包内名称为BiliBili_Danmuji-版本号beta.jar,如上游发生变化，则无法成功构建镜像~~
 
