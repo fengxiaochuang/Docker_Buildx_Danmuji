@@ -4,7 +4,7 @@ name: Buildx_Danmuji_Docker_Test
 on:
   # master分支的push操作会触发当前脚本的执行
   push:
-    branches: [ master ]
+    branches: [ main ]
   # master分支的pr操作会触发当前脚本的执行
 #  pull_request:
 #    branches: [ master ]
