@@ -5,7 +5,7 @@ RUN ln -fs /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
     && apt install unzip \
     && dpkg-reconfigure --frontend noninteractive tzdata \
     && wget https://raw.githubusercontent.com/zzcabc/Docker_Buildx_Danmuji/main/start.sh \
-    && chmod +x start.sh
+    && chmod +x start.sh \
     && mkdir Danmuji_log && mkdir guardFile && mkdir log \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf /tmp/*    
