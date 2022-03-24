@@ -16,18 +16,18 @@
 
 [B站用户西凉君君提供的Docker镜像地址](https://registry.hub.docker.com/r/xilianghe/danmuji)
 
-# 后期将要更新(预计在4月1日)
-**之后会删除部分架构的支持，仅保留amd64，arm64，以及可能会保留arm32**
-
-**此外，Java版本将会更新至8u322，该版本仅支持amd64和arm64**
-
-**arm32将继续使用8u212**
-
-不影响使用
-
 # 使用方式
 
-## DockerHub镜像(无自动更新)
+```
+在2.4.9版本之后将取消inux/386、linux/armv6、linux/ppc64le、linux/s390x的镜像构建
+
+如果你想拉取armv7的镜像，请使用 zzcabc/danmuji:latest-arm32 进行拉取
+
+或者使用 zzcabc/danmuji:2.4.9-arm32 拉取指定版本
+
+```
+
+## DockerHub镜像(无自动更新 将`zzcabc/danmuji`改为`registry.cn-hangzhou.aliyuncs.com/zzcabc/danmuji`即可使用阿里镜像仓库)
 
 ```sh
 docker run -d \
@@ -49,6 +49,9 @@ docker run -d \
     -p 本机端口:23333 \
     zzcabc/danmuji
 ```
+
+**默认拉取最新版的镜像，如果你想指定版本可以将`zzcabc/danmuji`改为`zzcabc/danmuji:2.4.9`**
+
 ## DockerHub镜像(有自动更新 将在2.4.9之后的版本加入)
 
 容器采用获取官方的releases的danmuji.zip 解压并使用
@@ -73,20 +76,6 @@ docker run -d \
     -v 本机路径:/danmuji/guardFile \
     -v 本机路径:/danmuji/log \
     zzcabc/danmuji:autoupdate
-```
-
-## 阿里镜像仓库
-
-```sh
-docker run -d \
-    --name danmuji \
-    --dns=223.5.5.5 \
-    -p 本机端口:23333 \
-    -e JAVA_OPTS="-Xms64m -Xmx128m" \
-    -v 本机路径:/danmuji/Danmuji_log \
-    -v 本机路径:/danmuji/guardFile \
-    -v 本机路径:/danmuji/log \
-    registry.cn-hangzhou.aliyuncs.com/zzcabc/danmuji
 ```
 
 ## docker-compose方式
