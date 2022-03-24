@@ -13,7 +13,7 @@ if [ ! -f "/danmuji/old" ];then
     # 将BiliBili_Danmuji-版本beta.jar 移动至/danmuji文件夹下，并重命名为danmuji.jar
     cp $(find ./ -name "*.jar") danmuji.jar
     # 删除下载的压缩文件
-    rm -rf danmuji
+    rm -rf danmuji danmuji.zip
 else
     # 存在说明重启过容器
     # 将重启时的版本写入新的文件
@@ -31,7 +31,7 @@ if [ -f "/danmuji/new" ];then
         # 将BiliBili_Danmuji-版本beta.jar 移动至/danmuji文件夹下，并重命名为danmuji.jar
         cp $(find ./ -name "*.jar") danmuji.jar
         # 删除下载的压缩文件
-        rm -rf danmuji
+        rm -rf danmuji danmuji.zip
         # 并将new改名为old
         mv /danmuji/new /danmuji/old
     fi
