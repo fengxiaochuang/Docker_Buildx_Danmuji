@@ -123,7 +123,7 @@ docker run -d \
     zzcabc/danmuji-test
 ```
 
-**当版本更新的时候，你只要使用`docker restart danmuji` **
+**当版本更新的时候，你只要使用`docker restart danmuji`**
 
 ## 方案一——手动更新
 
