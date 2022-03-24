@@ -27,7 +27,7 @@
 
 # 使用方式
 
-## DockerHub镜像
+## DockerHub镜像(无自动更新)
 
 ```sh
 docker run -d \
@@ -38,15 +38,41 @@ docker run -d \
     -v 本机路径:/danmuji/Danmuji_log \
     -v 本机路径:/danmuji/guardFile \
     -v 本机路径:/danmuji/log \
-    zzcabc/danmuji:latest
+    zzcabc/danmuji
 ```
 
 或者，你也可以使用
+
 ```sh
 docker run -d \
     --name danmuji \
     -p 本机端口:23333 \
-    zzcabc/danmuji:latest
+    zzcabc/danmuji
+```
+## DockerHub镜像(有自动更新 将在2.4.9之后的版本加入)
+
+容器采用获取官方的releases的danmuji.zip 解压并使用
+
+releases下载使用国内的免费服务，可能说不定就挂了
+
+但是可能无法正常更新版本，毕竟Github的网络条件你懂
+
+当版本更新的时候，你只需要使用 `docker restart danmuji` 即可完成更新操作
+
+**注意：我不敢保证自动更新的可靠性，因为目前为止我还没有测试过**
+
+将`zzcabc/danmuji:autoupdate`改成`registry.cn-hangzhou.aliyuncs.com/zzcabc/danmuji:autoupdate` 即可使用阿里镜像仓库
+
+```sh
+docker run -d \
+    --name danmuji \
+    --dns=223.5.5.5 \
+    -p 本机端口:23333 \
+    -e JAVA_OPTS="-Xms64m -Xmx128m" \
+    -v 本机路径:/danmuji/Danmuji_log \
+    -v 本机路径:/danmuji/guardFile \
+    -v 本机路径:/danmuji/log \
+    zzcabc/danmuji:autoupdate
 ```
 
 ## 阿里镜像仓库
@@ -60,7 +86,7 @@ docker run -d \
     -v 本机路径:/danmuji/Danmuji_log \
     -v 本机路径:/danmuji/guardFile \
     -v 本机路径:/danmuji/log \
-    registry.cn-hangzhou.aliyuncs.com/zzcabc/danmuji:latest
+    registry.cn-hangzhou.aliyuncs.com/zzcabc/danmuji
 ```
 
 ## docker-compose方式
@@ -108,6 +134,8 @@ docker run -d \
 # 更新容器方式
 
 ## 测试环境加入重启容器更新版本
+
+**仅用于抢先体验，之后会在正式版本加入**
 
 目前仅支持Amd64，Arm64
 

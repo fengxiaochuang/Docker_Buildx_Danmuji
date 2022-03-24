@@ -28,25 +28,40 @@ jobs:
         # ALI_ADD ：阿里镜像地址
         # GITHUB_VERSION ： 源码版本
         # DOCKERHUB_VERSION ： DockerHub 镜像版本
-        # TAG_VERSION ： 标签版本 zzcabc/pixivbiu-test:2.2.0a
+        # TAG_VERSION ： 标签版本 zzcabc/danmuji:2.4.9
         # TAG_LATEST ： 最新版本 zzcabc/pixivbiu-test:latest
-        # ALI_VERSION ：
-        # ALI_LATEST :
+        # ALI_VERSION ： registry.cn-hangzhou.aliyuncs.com/zzcabc/danmuji:2.4.9
+        # ALI_LATEST : registry.cn-hangzhou.aliyuncs.com/zzcabc/danmuji:latest
+        # AUTO_UPDATE_TAG : zzcabc/danmuji:autoupdate
+        # AUTO_UPDATE_ALI : registry.cn-hangzhou.aliyuncs.com/zzcabc/danmuji:autoupdate
         run: |
           IMAGE_NAME=danmuji
           ALI_ADD=registry.cn-hangzhou.aliyuncs.com
+          
           GITHUB_VERSION=$(curl -sX GET "https://api.github.com/repos/BanqiJane/Bilibili_Danmuji/releases/latest" | awk '/tag_name/{print $4;exit}' FS='[""]')
           DOCKERHUB_VERSION=$(curl -sX GET "https://hub.docker.com/v2/repositories/zzcabc/danmuji/tags" | awk '{print $610;exit}' FS='[""]')
+          
           TAG_VERSION="${{ secrets.DOCKERHUB_USERNAME }}/${IMAGE_NAME}:${GITHUB_VERSION}"
           TAG_LATEST="${{ secrets.DOCKERHUB_USERNAME }}/${IMAGE_NAME}:latest"
+          
           ALI_VERSION="${ALI_ADD}/${{ secrets.ALIYUN_NAMESPACES }}/${IMAGE_NAME}:${GITHUB_VERSION}"
           ALI_LATEST="${ALI_ADD}/${{ secrets.ALIYUN_NAMESPACES }}/${IMAGE_NAME}:latest"
+
+          AUTO_UPDATE_TAG="${{ secrets.DOCKERHUB_USERNAME }}/${IMAGE_NAME}:autoupdate"
+          AUTO_UPDATE_ALI="${ALI_ADD}/${{ secrets.ALIYUN_NAMESPACES }}/${IMAGE_NAME}:autoupdate"
+
           echo ::set-output name=github_version::${GITHUB_VERSION}
           echo ::set-output name=dockerhub_version::${DOCKERHUB_VERSION}
+
           echo ::set-output name=tag_version::${TAG_VERSION}
           echo ::set-output name=tag_latest::${TAG_LATEST}
+          
           echo ::set-output name=ali_version::${ALI_VERSION}
           echo ::set-output name=ali_latest::${ALI_LATEST}
+
+          echo ::set-output name=auto_update_tag::${AUTO_UPDATE_TAG}
+          echo ::set-output name=auto_update_ali::${AUTO_UPDATE_ALI}
+
       # 切换到主分支
       - name: Checkout
         if: ${{ steps.prepare.outputs.dockerhub_version != steps.prepare.outputs.github_version }}
@@ -108,3 +123,16 @@ jobs:
             ${{ steps.prepare.outputs.tag_latest }}
             ${{ steps.prepare.outputs.ali_version }}
             ${{ steps.prepare.outputs.ali_latest }}
+
+      # 自动更新的推送
+      - name: Build and Push
+        if: ${{ steps.prepare.outputs.dockerhub_version != steps.prepare.outputs.github_version }}
+        uses: docker/build-push-action@v2
+        with:
+          platforms: linux/amd64,linux/arm64
+          file: ./Dockerfile.Update
+          context: .
+          push: true
+          tags: |
+            ${{ steps.prepare.outputs.auto_update_tag }}
+            ${{ steps.prepare.outputs.auto_update_ali }}
