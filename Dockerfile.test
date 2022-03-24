@@ -2,7 +2,7 @@ FROM openjdk:8u322-jre-slim-bullseye
 WORKDIR /danmuji
 RUN ln -fs /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
     && echo "Asia/Shanghai" > /etc/timezone \
-    && apt install unzip \
+    && dpkg -i unzip \
     && dpkg-reconfigure --frontend noninteractive tzdata \
     && wget https://raw.githubusercontent.com/zzcabc/Docker_Buildx_Danmuji/main/start.sh \
     && chmod +x start.sh \
