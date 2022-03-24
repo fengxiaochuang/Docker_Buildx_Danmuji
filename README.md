@@ -1,7 +1,5 @@
 # [Docker_Buildx_Danmuji](https://hub.docker.com/r/zzcabc/danmuji) <-点击跳转DockerHub
 
-####  [本测试版本](https://hub.docker.com/r/zzcabc/danmuji-test) <- 点击跳转本项目测试DockerHub 
-
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/BanqiJane/Bilibili_Danmuji?label=danmuji&style=flat-square)](https://github.com/BanqiJane/Bilibili_Danmuji/releases/latest) [![Docker Image Version (latest by date)](https://img.shields.io/docker/v/zzcabc/danmuji?label=DockerHub&style=flat-square)](https://hub.docker.com/r/zzcabc/danmuji/tags?page=1&ordering=last_updated)
 
 ### 如果你发现上面图标版本不一致，请点击一下star，这样会触发自动构建镜像，即使你之后取消star
@@ -12,9 +10,9 @@
 |--|--|--|
 |源码构建|openjdk:8u212-jre-alpine3.9|110M|
 
-[测试版本](https://hub.docker.com/r/zzcabc/danmuji-test)采用openjdk:8u212-jre-alpine3.9作为底包
-
 使用GitHub Action中国时间 **0:00** 自动拉取[BanqiJane/Bilibili_Danmuji](https://github.com/BanqiJane/Bilibili_Danmuji)的源码进行构建Docker镜像，**但当源码版本和Docker镜像版本一致将不会构建镜像**，由源码构建时间大概6分钟
+
+### [测试版本加入重启更新](https://github.com/zzcabc/Docker_Buildx_Danmuji#测试环境加入重启容器更新版本)
 
 [B站用户西凉君君提供的Docker镜像地址](https://registry.hub.docker.com/r/xilianghe/danmuji)
 
@@ -108,6 +106,24 @@ docker run -d \
 ```
 
 # 更新容器方式
+
+## 测试环境加入重启容器更新版本
+
+目前仅支持Amd64，Arm64
+
+```sh
+docker run -d \
+    --name danmuji \
+    --dns=223.5.5.5 \
+    -p 本机端口:23333 \
+    -e JAVA_OPTS="-Xms64m -Xmx128m" \
+    -v 本机路径:/danmuji/Danmuji_log \
+    -v 本机路径:/danmuji/guardFile \
+    -v 本机路径:/danmuji/log \
+    zzcabc/danmuji-test
+```
+
+**当版本更新的时候，你只要使用`docker restart danmuji` **
 
 ## 方案一——手动更新
 
