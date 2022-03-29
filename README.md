@@ -1,4 +1,6 @@
-# [Docker_Buildx_Danmuji](https://hub.docker.com/r/zzcabc/danmuji) <-点击跳转DockerHub
+# Docker_Buildx_Danmuji
+
+前往[Dockerhub](https://hub.docker.com/r/zzcabc/danmuji)  前往[Github](https://github.com/zzcabc/Docker_Buildx_Danmuji)
 
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/BanqiJane/Bilibili_Danmuji?label=danmuji&style=flat-square)](https://github.com/BanqiJane/Bilibili_Danmuji/releases/latest) [![Docker Image Version (latest by date)](https://img.shields.io/docker/v/zzcabc/danmuji?label=DockerHub&style=flat-square)](https://hub.docker.com/r/zzcabc/danmuji/tags?page=1&ordering=last_updated)
 
