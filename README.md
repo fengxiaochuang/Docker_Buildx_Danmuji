@@ -168,6 +168,22 @@ docker run -d \
 | `/danmuji/guardFile` | 弹幕姬上舰私信文件夹(非必须映射) |
 | `/danmuji/log` | 弹幕姬日志文件夹(非必须映射) |
 
+即使没有写明的映射路径，你也可以使用-v去映射
+
+比如点击保存配置的时候，程序会在其所在目录下创建set文件夹，在set文件夹下生成set.json配置文件
+
+你同样可以使用`-v 本地路径:/danmuji/set` 来存放配置文件
+
+本docker镜像中程序会存放在/danmuji目录下，不要没事干映射Linux专有的文件夹
+
+对于已经启动的容器，
+
+你也可以使用`docker cp 容器名称:容器内部路径 本地路径` 来将文件或文件夹复制到本地路径下
+
+比如使用`docker cp danmuji:/danmuji/DanmujiProfile /usr/DanmujiProfile` 即可将DanmujiProfile 复制到宿主机的/usr目录下
+
+使用`docker cp danmuji:/danmuji/set /usr/set` 即可将set文件夹内的所有东西 复制到宿主机的/usr/set目录下
+
 ### ~~注意：本项目会拉取releases最新的danmuji.zip构建镜像,因包内名称为BiliBili_Danmuji-版本号beta.jar,如上游发生变化，则无法成功构建镜像~~
 
 # TODO
