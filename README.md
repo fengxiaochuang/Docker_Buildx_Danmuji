@@ -124,10 +124,7 @@ docker run -d \
 
 # 更新容器方式
 
-## 测试环境加入重启容器更新版本
-
-**仅用于抢先体验，之后会在正式版本加入**
-
+## 容器自动更新
 目前仅支持Amd64，Arm64
 
 ```sh
@@ -139,7 +136,7 @@ docker run -d \
     -v 本机路径:/danmuji/Danmuji_log \
     -v 本机路径:/danmuji/guardFile \
     -v 本机路径:/danmuji/log \
-    zzcabc/danmuji-test
+    zzcabc/danmuji:autoupdate
 ```
 
 **当版本更新的时候，你只要使用`docker restart danmuji`**
