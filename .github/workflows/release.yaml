@@ -3,7 +3,7 @@ name: release
 
 on:
   repository_dispatch:
-    types: [version]
+    types: [-v]
   # main分支的push操作会触发当前脚本的执行
   # push:
   #   branches: [ main ]
@@ -22,6 +22,7 @@ jobs:
   release:
     # 运行在Ubuntu系统上
     runs-on: ubuntu-latest
+    if: "contains(github.event.head_commit.message, '-v')"
     # 步骤
     steps:
       - name: Prepare
