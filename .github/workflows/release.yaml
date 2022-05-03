@@ -101,8 +101,8 @@ jobs:
           sudo apt-get install -y rar zip
           cp Bilibili_Danmuji/*.jar danmuji/
           cp Bilibili_Danmuji/*.jar danmuji-green/
-          zip danmuji-green.zip danmuji-green/
-          zip danmuji.zip danmuji/
+          zip -r danmuji-green.zip danmuji-green/
+          zip -r danmuji.zip danmuji/
           rar a danmuji-green.rar danmuji-green/
           rar a danmuji.rar danmuji/
           tar cvf danmuji.tar danmuji/
