@@ -7,7 +7,7 @@ on:
       releaseTag:
         description: 'Release Tag' 
         required: true
-        default: '-v'
+        default: 'v'
   # main分支的push操作会触发当前脚本的执行
   # push:
   #   branches: [ main ]
@@ -106,7 +106,7 @@ jobs:
           zip -r danmuji-green.zip danmuji-green/
           zip -r danmuji.zip danmuji/
           rar -r danmuji-green.rar danmuji-green/
-          rar a -r danmuji.rar danmuji/
+          rar a +r danmuji.rar danmuji/
           tar cvf danmuji.tar danmuji/
 
       - name: Upload firmware to release
