@@ -56,12 +56,10 @@ jobs:
           sudo apt-get install -y git rar
           git clone https://github.com/BanqiJane/Bilibili_Danmuji.git
           cd Bilibili_Danmuji
-          git checkout 7816a7398fa5e9cfedfa02fbdb920096aab4c4d9
           sudo chmod +x ./gradlew
           sudo chmod +x lib/javastruct-0.1.jar
           sudo ./gradlew build -x test
-          $(find ./ -name "*.jar")
-          sudo mv $(find build -type f -size +10M) ././danmuji.jar
+          sudo mv $(find build -type f -size +10M) ././
 
       - name: Edit files
         run: |
