@@ -99,8 +99,8 @@ jobs:
         run: |
           ls
           sudo apt-get install -y rar zip
-          cp *.jar danmuji/
-          cp *.jar danmuji-green/
+          cp Bilibili_Danmuji/*.jar danmuji/
+          cp Bilibili_Danmuji/*.jar danmuji-green/
           zip danmuji-green.zip danmuji-green/
           zip danmuji.zip danmuji/
           rar a danmuji-green.rar danmuji-green/
