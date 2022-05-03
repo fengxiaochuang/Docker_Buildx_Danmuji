@@ -65,8 +65,6 @@ jobs:
 
       - name: Edit files
         run: |
-          wget https://javadl.oracle.com/webapps/download/AutoDL?BundleId=246464_2dee051a5d0647d5be72a7c0abff270e
-          tar -zcvf *.tar.gz danmuji-green/jre8
           echo "仅在本机有jdk8或jre8版本以上的环境下" > danmuji/readme.txt
           echo "window下：直接run.bat运行" >> danmuji/readme.txt
           echo "其它系统或方法：在本软件目录下cmd命令行执行 java -jar  -Xms64m -Xmx128m  BiliBili_Danmuji-${{ steps.prepare.outputs.tag_version }}.jar --server.port=23333 即可运行" >> danmuji/readme.txt
@@ -103,7 +101,7 @@ jobs:
           cp Bilibili_Danmuji/*.jar danmuji-green/
           zip -r danmuji-green.zip danmuji-green/
           zip -r danmuji.zip danmuji/
-          rar a danmuji-green.rar danmuji-green/
+          rar -ar danmuji-green.rar danmuji-green/
           rar a danmuji.rar danmuji/
           tar cvf danmuji.tar danmuji/
 
