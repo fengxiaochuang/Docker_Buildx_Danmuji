@@ -8,11 +8,11 @@
 
 本项目使用Docker Buildx构建全平台镜像，支持linux/amd64、linux/armv7、linux/armv8、~~linux/386、linux/armv6、linux/ppc64le、linux/s390x~~框架
 
-|构建方式|底包采用|Amd64镜像大小|
+|dockerfile|架构|底包采用|Amd64镜像大小|
 |--|--|--|
-|Alpine|openjdk:8u212-jre-alpine3.9|110M|
-|Debian|8u322-jre-slim-bullseye||
-|Update|8u322-jre-slim-bullseye||
+|Alpine|arm32|openjdk:8u212-jre-alpine3.9|110M|
+|Debian|amd64,arm64|8u322-jre-slim-bullseye|221M|
+|Update|amd64,arm64|8u322-jre-slim-bullseye|221M|
 
 使用GitHub Action中国时间 **0:00** 自动拉取[BanqiJane/Bilibili_Danmuji](https://github.com/BanqiJane/Bilibili_Danmuji)的源码进行构建Docker镜像，**但当源码版本和Docker镜像版本一致将不会构建镜像**，由源码构建时间大概6分钟
 

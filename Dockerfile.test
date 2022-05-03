@@ -10,6 +10,5 @@ RUN ln -fs /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf /tmp/*    
 EXPOSE 23333
-VOLUME /danmuji/Danmuji_log /danmuji/guardFile /danmuji/log
 ENV JAVA_OPTS=""
 ENTRYPOINT ["./start.sh"]
