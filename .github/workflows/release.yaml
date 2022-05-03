@@ -3,7 +3,7 @@ name: release
 
 on:
   repository_dispatch:
-    types: [-v]
+    types: [version]
   # main分支的push操作会触发当前脚本的执行
  push:
    branches: [ main ]
