@@ -2,11 +2,15 @@
 name: release
 
 on:
-  # repository_dispatch:
-  #   types: [-v]
+  workflow_dispatch:
+    inputs:
+      releaseTag:
+        description: 'Release Tag' 
+        required: true
+        default: '-v'
   # main分支的push操作会触发当前脚本的执行
-  push:
-    branches: [ main ]
+  # push:
+  #   branches: [ main ]
   # main分支的pr操作会触发当前脚本的执行
 #  pull_request:
 #    branches: [ main ]
@@ -22,7 +26,7 @@ jobs:
   release:
     # 运行在Ubuntu系统上
     runs-on: ubuntu-latest
-    if: "contains(github.event.head_commit.message, '-v')"
+    # if: "contains(github.event.head_commit.message, '-v')"
     # 步骤
     steps:
       - name: Prepare
