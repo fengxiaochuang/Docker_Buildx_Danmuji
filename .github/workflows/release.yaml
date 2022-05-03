@@ -102,7 +102,7 @@ jobs:
           zip -r danmuji-green.zip danmuji-green/
           zip -r danmuji.zip danmuji/
           rar -r danmuji-green.rar danmuji-green/
-          rar a danmuji.rar danmuji/
+          rar a r danmuji.rar danmuji/
           tar cvf danmuji.tar danmuji/
 
       - name: Upload firmware to release
