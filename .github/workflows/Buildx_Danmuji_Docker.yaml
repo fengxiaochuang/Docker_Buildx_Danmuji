@@ -107,7 +107,7 @@ jobs:
           cd Bilibili_Danmuji
           sudo chmod +x ./gradlew
           sudo ./gradlew build -x test
-          sudo mv $(find build -type f -size +10M) ././danmuji.jar
+          sudo mv $(find build -type f -size +10M) ./danmuji.jar
 
       # 构建Amd64和Arm64的镜像
       - name: Build and Push Amd64 and Arm64

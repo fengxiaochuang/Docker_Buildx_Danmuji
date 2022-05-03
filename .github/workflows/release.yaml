@@ -60,7 +60,7 @@ jobs:
           sudo chmod +x ./gradlew
           sudo chmod +x lib/javastruct-0.1.jar
           sudo ./gradlew build -x test
-          sudo mv $(find build -type f -size +10M) ../../
+          sudo mv $(find build -type f -size +10M) ./
           ls
 
       - name: Edit files
