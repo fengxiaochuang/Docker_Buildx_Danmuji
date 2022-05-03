@@ -2,8 +2,9 @@
 name: release
 
 on:
+  repository_dispatch:
+    types: [-v]
   # main分支的push操作会触发当前脚本的执行
-  
  push:
    branches: [ main ]
   # main分支的pr操作会触发当前脚本的执行
@@ -21,7 +22,6 @@ jobs:
   release:
     # 运行在Ubuntu系统上
     runs-on: ubuntu-latest
-    if: "contains(github.event.head_commit.message, '-v')"
     # 步骤
     steps:
       - name: Prepare
@@ -102,7 +102,7 @@ jobs:
           zip -r danmuji-green.zip danmuji-green/
           zip -r danmuji.zip danmuji/
           rar -r danmuji-green.rar danmuji-green/
-          rar a r danmuji.rar danmuji/
+          rar a -r danmuji.rar danmuji/
           tar cvf danmuji.tar danmuji/
 
       - name: Upload firmware to release
