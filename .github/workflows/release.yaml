@@ -93,9 +93,11 @@ jobs:
           echo "title BiliBili_Danmuji-$(steps.prepare.outputs.file_name)-%date%-%time%-%cd%" >> danmuji-green/run.bat
           echo "jdk8u282-b08-jre\bin\java -jar -Xms64m -Xmx128m BiliBili_Danmuji-$(steps.prepare.outputs.file_name).jar --server.port=23333" >> danmuji-green/run.bat
 
+          ls
       # 压缩文件
       - name: Compressed Files
         run: |
+          ls
           sudo apt-get install -y rar zip
           cp *.jar danmuji/
           cp *.jar danmuji-green/
