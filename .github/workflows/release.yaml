@@ -91,7 +91,7 @@ jobs:
 
           echo "@echo off" > danmuji-green/run.bat
           echo "title BiliBili_Danmuji-${{ steps.prepare.outputs.tag_version }}-%date%-%time%-%cd%" >> danmuji-green/run.bat
-          echo "jre8\bin\java -jar -Xms64m -Xmx128m BiliBili_Danmuji-${{ steps.prepare.outputs.tag_version }}.jar --server.port=23333" >> danmuji-green/run.bat
+          echo "jdk8u282-b08-jre\bin\java -jar -Xms64m -Xmx128m BiliBili_Danmuji-${{ steps.prepare.outputs.tag_version }}.jar --server.port=23333" >> danmuji-green/run.bat
       # 压缩文件
       - name: Compressed Files
         run: |
