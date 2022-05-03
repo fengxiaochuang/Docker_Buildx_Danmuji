@@ -114,7 +114,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ steps.prepare.outputs.tag_version }}
+          tag_name: ${{ github.event.inputs.releaseTag }}
           files: |
             danmuji.tar
             danmuji-green.rar

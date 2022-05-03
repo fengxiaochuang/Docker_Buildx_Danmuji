@@ -2,9 +2,15 @@
 name: Buildx_Danmuji_Docker_Test
 
 on:
+  workflow_dispatch:
+    inputs:
+      releaseTag:
+        description: 'Release Tag' 
+        required: true
+        default: 'v'
   # master分支的push操作会触发当前脚本的执行
-  push:
-    branches: [ main ]
+  # push:
+  #   branches: [ main ]
   # master分支的pr操作会触发当前脚本的执行
 #  pull_request:
 #    branches: [ master ]
@@ -20,7 +26,6 @@ jobs:
   Buildx_Danmuji_Docker_Test:
     # 运行在Ubuntu系统上
     runs-on: ubuntu-latest
-    if: "contains(github.event.head_commit.message, 'test')"
     # 步骤
     steps:
       - name: Prepare
