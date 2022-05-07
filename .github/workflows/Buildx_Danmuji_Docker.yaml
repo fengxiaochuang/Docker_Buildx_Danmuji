@@ -2,6 +2,12 @@
 name: Buildx_Danmuji_Docker
 
 on:
+  workflow_dispatch:
+    inputs:
+      releaseTag:
+        description: 'Forced' 
+        required: true
+        default: 'true'
   # main分支的push操作会触发当前脚本的执行
 #  push:
 #    branches: [ main ]
@@ -64,21 +70,21 @@ jobs:
 
       # 切换到主分支
       - name: Checkout
-        # if: ${{ steps.prepare.outputs.dockerhub_version != steps.prepare.outputs.github_version }}
+        if: ${{ steps.prepare.outputs.dockerhub_version != steps.prepare.outputs.github_version || github.event.inputs.Forced == 'true' }}
         uses: actions/checkout@main
 
       - name: Set up QEMU
-        # if: ${{ steps.prepare.outputs.dockerhub_version != steps.prepare.outputs.github_version }} 
+        if: ${{ steps.prepare.outputs.dockerhub_version != steps.prepare.outputs.github_version || github.event.inputs.Forced == 'true' }}
         uses: docker/setup-qemu-action@v1
 
       # 初始化Docker Buildx
       - name: Set up Docker Buildx
-        # if: ${{ steps.prepare.outputs.dockerhub_version != steps.prepare.outputs.github_version }}
+        if: ${{ steps.prepare.outputs.dockerhub_version != steps.prepare.outputs.github_version || github.event.inputs.Forced == 'true' }}
         uses: docker/setup-buildx-action@v1
 
       # 登录到DockerHub
       - name: Login to DockerHub
-        # if: ${{ steps.prepare.outputs.dockerhub_version != steps.prepare.outputs.github_version }}
+        if: ${{ steps.prepare.outputs.dockerhub_version != steps.prepare.outputs.github_version || github.event.inputs.Forced == 'true' }}
         uses: docker/login-action@v1
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
@@ -86,13 +92,13 @@ jobs:
 
       # 登录到阿里镜像仓库
       - name: Login To Alibaba Cloud Container Registry
-        # if: ${{ steps.prepare.outputs.dockerhub_version != steps.prepare.outputs.github_version }}
+        if: ${{ steps.prepare.outputs.dockerhub_version != steps.prepare.outputs.github_version || github.event.inputs.Forced == 'true' }}
         run: |
           docker login -u ${{ secrets.ALIYUN_USERNAME }} -p ${{ secrets.ALIYUN_PWD }} registry.cn-hangzhou.aliyuncs.com
 
       # 初始化 JDK8 环境
       - name: Set up JDK 8
-        # if: ${{ steps.prepare.outputs.dockerhub_version != steps.prepare.outputs.github_version }}
+        if: ${{ steps.prepare.outputs.dockerhub_version != steps.prepare.outputs.github_version || github.event.inputs.Forced == 'true' }}
         uses: actions/setup-java@v2
         with:
           java-version: '8'
@@ -100,7 +106,7 @@ jobs:
 
       # 使用Gradle编译构建同时命名danmuji.jar
       - name: Build with Gradle
-        # if: ${{ steps.prepare.outputs.dockerhub_version != steps.prepare.outputs.github_version }}
+        if: ${{ steps.prepare.outputs.dockerhub_version != steps.prepare.outputs.github_version || github.event.inputs.Forced == 'true' }}
         run: |
           sudo apt-get install -y git
           git clone https://github.com/BanqiJane/Bilibili_Danmuji.git
@@ -111,7 +117,7 @@ jobs:
 
      # 构建Arm32的镜像
       - name: Build and Push Arm32
-        # if: ${{ steps.prepare.outputs.dockerhub_version != steps.prepare.outputs.github_version }}
+        if: ${{ steps.prepare.outputs.dockerhub_version != steps.prepare.outputs.github_version || github.event.inputs.Forced == 'true' }}
         uses: docker/build-push-action@v2
         with:
           platforms:  linux/arm/v7
@@ -124,7 +130,7 @@ jobs:
 
       # 自动更新的推送
       - name: Build and Push Auto Update
-        # if: ${{ steps.prepare.outputs.dockerhub_version != steps.prepare.outputs.github_version }}
+        if: ${{ steps.prepare.outputs.dockerhub_version != steps.prepare.outputs.github_version || github.event.inputs.Forced == 'true' }}
         uses: docker/build-push-action@v2
         with:
           platforms: linux/amd64,linux/arm64/v8
@@ -137,7 +143,7 @@ jobs:
 
       # 构建Amd64和Arm64的镜像
       - name: Build and Push Amd64 and Arm64
-        # if: ${{ steps.prepare.outputs.dockerhub_version != steps.prepare.outputs.github_version }}
+        if: ${{ steps.prepare.outputs.dockerhub_version != steps.prepare.outputs.github_version || github.event.inputs.Forced == 'true' }}
         uses: docker/build-push-action@v2
         with:
           platforms: linux/amd64,linux/arm64/v8
