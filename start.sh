@@ -20,7 +20,7 @@ else
     # 将BiliBili_Danmuji-版本beta.jar 移动至/danmuji文件夹下，并重命名为danmuji.jar
     cp $(find ./ -name "*.jar") danmuji.jar
     # 删除下载的压缩文件
-    rm -rf danmuji/ danmuji.zip
+    rm -rf danmuji/ *.zip
     echo "Download completed"
 fi
 
@@ -32,7 +32,7 @@ if [ -f "/danmuji/new" ];then
         echo "Inconsistent versions"
         echo "Version being updated"
         # 删除旧的danmuji.jar
-        rm danmuji.jar
+        rm *.jar
         # 不一样，获取最新的版本
         # 下载新的版本
         wget https://github.do/https://github.com/BanqiJane/Bilibili_Danmuji/releases/download/$(cat new)/danmuji.zip
@@ -41,7 +41,7 @@ if [ -f "/danmuji/new" ];then
         # 将BiliBili_Danmuji-版本beta.jar 移动至/danmuji文件夹下，并重命名为danmuji.jar
         cp $(find ./ -name "*.jar") danmuji.jar
         # 删除下载的压缩文件
-        rm -rf danmuji/ danmuji.zip
+        rm -rf danmuji/ *.zip
         # 并将new改名为old
         mv /danmuji/new /danmuji/old
 
