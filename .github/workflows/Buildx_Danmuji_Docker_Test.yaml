@@ -5,9 +5,9 @@ on:
   workflow_dispatch:
     inputs:
       releaseTag:
-        description: 'Release Tag' 
+        description: 'Forced' 
         required: true
-        default: 'v'
+        default: 'true'
   # master分支的push操作会触发当前脚本的执行
   # push:
   #   branches: [ main ]
@@ -93,6 +93,7 @@ jobs:
 
       # 构建并推送
       - name: Build and Push
+        if: ${{ github.event.inputs.Forced == 'true' }}
         uses: docker/build-push-action@v2
         with:
           platforms: linux/amd64,linux/arm64
