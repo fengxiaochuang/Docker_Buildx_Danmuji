@@ -9,7 +9,7 @@
 本项目使用Docker Buildx构建全平台镜像，支持linux/amd64、linux/armv7、linux/armv8、~~linux/386、linux/armv6、linux/ppc64le、linux/s390x~~框架
 
 |dockerfile|架构|底包采用|Amd64镜像大小|
-|--|--|--|
+|:--:|:--:|:--:|:--:|
 |Alpine|arm32|openjdk:8u212-jre-alpine3.9|110M|
 |Debian|amd64,arm64|8u322-jre-slim-bullseye|221M|
 |Update|amd64,arm64|8u322-jre-slim-bullseye|221M|
@@ -21,7 +21,7 @@
 # 使用方式
 
 ```
-在2.4.9版本之后将取消inux/386、linux/armv6、linux/ppc64le、linux/s390x的镜像构建
+当前已经取消inux/386、linux/armv6、linux/ppc64le、linux/s390x的镜像构建
 
 如果你想拉取armv7的镜像，请使用 zzcabc/danmuji:latest-arm32 进行拉取
 
@@ -77,6 +77,15 @@ docker run -d \
     -v 本机路径:/danmuji/Danmuji_log \
     -v 本机路径:/danmuji/guardFile \
     -v 本机路径:/danmuji/log \
+    zzcabc/danmuji:autoupdate
+```
+
+或者，你也可以使用
+
+```sh
+docker run -d \
+    --name danmuji \
+    -p 本机端口:23333 \
     zzcabc/danmuji:autoupdate
 ```
 
@@ -156,7 +165,7 @@ docker run -d \
 此说明对应Docker容器内
 
 | Docker运行参数 | 说明 |  
-| --- | --- |
+| :---: | :---: |
 | `run -d` | 后台的方式保持运行 |
 | `--name danmuji` | 设置Docker容器名称为danmuji(非必要设置) |
 | `--dns=223.5.5.5` | Docker容器使用阿里DNS |
