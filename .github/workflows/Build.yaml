@@ -1,5 +1,5 @@
 # 利用GitHub Action自动构建多框架的docker镜像
-name: Buildx_Danmuji_Docker
+name: Build
 
 on:
   workflow_dispatch:
@@ -23,11 +23,15 @@ on:
 
 
 jobs:
-  Buildx_Danmuji_Docker:
+  Build:
     # 运行在Ubuntu系统上
     runs-on: ubuntu-latest
     # 步骤
     steps:
+      # 切换到主分支
+      - name: Checkout
+        uses: actions/checkout@main
+
       - name: Prepare
         id: prepare
         # IMAGE_NAME ： 镜像名称
@@ -45,7 +49,7 @@ jobs:
           ALI_ADD=registry.cn-hangzhou.aliyuncs.com
           
           GITHUB_VERSION=$(curl -sX GET "https://api.github.com/repos/BanqiJane/Bilibili_Danmuji/releases/latest" | awk '/tag_name/{print $4;exit}' FS='[""]')
-          DOCKERHUB_VERSION=$(curl -sX GET "https://hub.docker.com/v2/repositories/zzcabc/danmuji/tags" | awk '{print $208;exit}' FS='[""]')
+          DOCKERHUB_VERSION=$(cat currentVersion)
           
           TAG_VERSION="${{ secrets.DOCKERHUB_USERNAME }}/${IMAGE_NAME}:${GITHUB_VERSION}"
           TAG_LATEST="${{ secrets.DOCKERHUB_USERNAME }}/${IMAGE_NAME}:latest"
@@ -67,11 +71,6 @@ jobs:
 
           echo ::set-output name=auto_update_tag::${AUTO_UPDATE_TAG}
           echo ::set-output name=auto_update_ali::${AUTO_UPDATE_ALI}
-
-      # 切换到主分支
-      - name: Checkout
-        if: ${{ steps.prepare.outputs.dockerhub_version != steps.prepare.outputs.github_version || github.event.inputs.Forced == 'true' }}
-        uses: actions/checkout@main
 
       - name: Set up QEMU
         if: ${{ steps.prepare.outputs.dockerhub_version != steps.prepare.outputs.github_version || github.event.inputs.Forced == 'true' }}
@@ -155,3 +154,18 @@ jobs:
             ${{ steps.prepare.outputs.tag_latest }}
             ${{ steps.prepare.outputs.ali_version }}
             ${{ steps.prepare.outputs.ali_latest }}
+            
+      # 初始化版本号与git 
+      - name: commit
+        run: |
+          echo "${{ steps.prepare.outputs.github_version }}" > currentVersion
+          git config --global user.name zhaocheng
+          git config --global user.email zhaocheng990105@gmail.com
+          git add currentVersion
+          git commit -m "当前版本是:${{ steps.prepare.outputs.github_version }}" -a
+      
+      # 推送版本号到GitHub 
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.TOKEN_GITHUB }}
