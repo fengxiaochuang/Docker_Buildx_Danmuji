@@ -157,6 +157,7 @@ jobs:
             
       # 初始化版本号与git 
       - name: commit
+        if: ${{ steps.prepare.outputs.dockerhub_version != steps.prepare.outputs.github_version || github.event.inputs.Forced == 'true' }}
         run: |
           echo "${{ steps.prepare.outputs.github_version }}" > currentVersion
           git config --global user.name zhaocheng
@@ -166,6 +167,7 @@ jobs:
       
       # 推送版本号到GitHub 
       - name: Push changes
+        if: ${{ steps.prepare.outputs.dockerhub_version != steps.prepare.outputs.github_version || github.event.inputs.Forced == 'true' }}
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.TOKEN_GITHUB }}
