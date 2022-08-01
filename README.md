@@ -4,7 +4,7 @@
 
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/BanqiJane/Bilibili_Danmuji?label=danmuji&style=flat-square)](https://github.com/BanqiJane/Bilibili_Danmuji/releases/latest) [![Docker Image Version (latest by date)](https://img.shields.io/docker/v/zzcabc/danmuji?label=DockerHub&style=flat-square)](https://hub.docker.com/r/zzcabc/danmuji/tags?page=1&ordering=last_updated)
 
-### 如果你发现上面图标版本不一致，请点击一下star，这样会触发自动构建镜像，即使你之后取消star
+### 如果你发现上面图标版本不一致，请前往Github点击一下star，这样会触发自动构建镜像，即使你之后取消star
 
 本项目使用Docker Buildx构建全平台镜像，支持linux/amd64、linux/armv7、linux/armv8、~~linux/386、linux/armv6、linux/ppc64le、linux/s390x~~框架
 
@@ -16,7 +16,7 @@
 
 使用GitHub Action中国时间 **0:00** 自动拉取[BanqiJane/Bilibili_Danmuji](https://github.com/BanqiJane/Bilibili_Danmuji)的源码进行构建Docker镜像，**但当源码版本和Docker镜像版本一致将不会构建镜像**，由源码构建时间大概6分钟
 
-[B站用户西凉君君提供的Docker镜像地址](https://registry.hub.docker.com/r/xilianghe/danmuji)
+~~[B站用户西凉君君提供的Docker镜像地址](https://registry.hub.docker.com/r/xilianghe/danmuji)~~
 
 # 使用方式
 
@@ -26,6 +26,8 @@
 如果你想拉取armv7的镜像，请使用 zzcabc/danmuji:latest-arm32 进行拉取
 
 或者使用 zzcabc/danmuji:2.5.0-arm32 拉取指定版本
+
+使用 zzcabc/danmuji:2.5.0 可以拉取arm64和amd64架构的镜像
 
 ```
 
@@ -37,6 +39,7 @@ docker run -d \
     --dns=223.5.5.5 \
     -p 本机端口:23333 \
     -e JAVA_OPTS="-Xms64m -Xmx128m" \
+    -e JAVA_OPTS2="" (将在2.5.0版本之后启用，具体看映射配置说明的表格)  \
     -v 本机路径:/danmuji/Danmuji_log \
     -v 本机路径:/danmuji/guardFile \
     -v 本机路径:/danmuji/log \
@@ -74,6 +77,7 @@ docker run -d \
     --dns=223.5.5.5 \
     -p 本机端口:23333 \
     -e JAVA_OPTS="-Xms64m -Xmx128m" \
+    -e JAVA_OPTS2="" (将在2.5.0版本之后启用，具体看映射配置说明的表格)  \
     -v 本机路径:/danmuji/Danmuji_log \
     -v 本机路径:/danmuji/guardFile \
     -v 本机路径:/danmuji/log \
@@ -142,6 +146,7 @@ docker run -d \
     --dns=223.5.5.5 \
     -p 本机端口:23333 \
     -e JAVA_OPTS="-Xms64m -Xmx128m" \
+    -e JAVA_OPTS2="" (将在2.5.0版本之后启用，具体看映射配置说明的表格)  \
     -v 本机路径:/danmuji/Danmuji_log \
     -v 本机路径:/danmuji/guardFile \
     -v 本机路径:/danmuji/log \
@@ -169,7 +174,8 @@ docker run -d \
 | `run -d` | 后台的方式保持运行 |
 | `--name danmuji` | 设置Docker容器名称为danmuji(非必要设置) |
 | `--dns=223.5.5.5` | Docker容器使用阿里DNS |
-| `JAVA_OPTS="-Xms64m -Xmx128m"` | 限制内存(**可能无效果**) |
+| `JAVA_OPTS="-Xms64m -Xmx128m -Duser.timezone=GMT+08"` | Java的基础配置，比如现在内存使用，设置Java时区等 |
+| `JAVA_OPTS2="Java配置的参数"` | 如果你对Java比较熟悉可以配置该参数(将在2.5.0版本之后启用) |
 | `/danmuji/Danmuji_log` | 弹幕姬保存弹幕文件夹(非必须映射) |
 | `/danmuji/guardFile` | 弹幕姬上舰私信文件夹(非必须映射) |
 | `/danmuji/log` | 弹幕姬日志文件夹(非必须映射) |
@@ -189,8 +195,6 @@ docker run -d \
 比如使用`docker cp danmuji:/danmuji/DanmujiProfile /usr/DanmujiProfile` 即可将DanmujiProfile 复制到宿主机的/usr目录下
 
 使用`docker cp danmuji:/danmuji/set /usr/set` 即可将set文件夹内的所有东西 复制到宿主机的/usr/set目录下
-
-### ~~注意：本项目会拉取releases最新的danmuji.zip构建镜像,因包内名称为BiliBili_Danmuji-版本号beta.jar,如上游发生变化，则无法成功构建镜像~~
 
 # TODO
 

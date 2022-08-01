@@ -10,4 +10,5 @@ RUN ln -fs /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
     && rm -rf /tmp/*    
 EXPOSE 23333
 ENV JAVA_OPTS=""
+ENV JAVA_OPTS2=""
 ENTRYPOINT ["./start.sh"]

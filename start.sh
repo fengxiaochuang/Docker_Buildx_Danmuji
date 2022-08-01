@@ -50,4 +50,4 @@ if [ -f "/danmuji/new" ];then
 fi
 
 # 运行弹幕姬
-java ${JAVA_OPTS} -jar danmuji.jar
+java ${JAVA_OPTS} -jar danmuji.jar ${JAVA_OPTS2}
