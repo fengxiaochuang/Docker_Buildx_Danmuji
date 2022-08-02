@@ -180,6 +180,8 @@ docker run -d \
 | `/danmuji/guardFile` | 弹幕姬上舰私信文件夹(非必须映射) |
 | `/danmuji/log` | 弹幕姬日志文件夹(非必须映射) |
 
+Docker容器内部运行命令 `java ${JAVA_OPTS} -jar danmuji.jar ${JAVA_OPTS2}`
+
 即使没有写明的映射路径，你也可以使用-v去映射
 
 比如点击保存配置的时候，程序会在其所在目录下创建set文件夹，在set文件夹下生成set.json配置文件
