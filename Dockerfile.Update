@@ -9,6 +9,7 @@ RUN ln -fs /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf /tmp/*    
 EXPOSE 23333
+ENV GITHUB_PROXY="https://ghproxy.com/"
 ENV JAVA_OPTS=""
 ENV JAVA_OPTS2=""
 ENTRYPOINT ["./start.sh"]

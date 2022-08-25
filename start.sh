@@ -14,7 +14,7 @@ else
     # 将当前版本写入old文件
     echo ${LATEST_VERSION} > old
     # 下载版本
-    wget https://gh.api.99988866.xyz/https://github.com/BanqiJane/Bilibili_Danmuji/releases/download/$(cat old)/danmuji.zip
+    wget ${GITHUB_PROXY}https://github.com/BanqiJane/Bilibili_Danmuji/releases/download/$(cat old)/danmuji.zip
     # 解压最新版本
     unzip danmuji.zip
     # 将BiliBili_Danmuji-版本beta.jar 移动至/danmuji文件夹下，并重命名为danmuji.jar
@@ -35,7 +35,7 @@ if [ -f "/danmuji/new" ];then
         rm *.jar
         # 不一样，获取最新的版本
         # 下载新的版本
-        wget https://gh.api.99988866.xyz/https://github.com/BanqiJane/Bilibili_Danmuji/releases/download/$(cat new)/danmuji.zip
+        wget ${GITHUB_PROXY}https://github.com/BanqiJane/Bilibili_Danmuji/releases/download/$(cat old)/danmuji.zip
         # 解压最新版本
         unzip danmuji.zip
         # 将BiliBili_Danmuji-版本beta.jar 移动至/danmuji文件夹下，并重命名为danmuji.jar

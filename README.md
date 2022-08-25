@@ -67,6 +67,9 @@ releases下载使用国内的免费服务，可能说不定就挂了
 
 当版本更新的时候，你只需要使用 `docker restart danmuji` 即可完成更新操作
 
+**在2.5.0版本之后(不包括2.5.0)，你可以指定代理服务商了**
+**不指定默认为GitHub官方源，目前可以用`https://ghproxy.com/`，记得后面有斜杠**
+
 **注意：只要免费服务不炸,就可以更新**
 
 将`zzcabc/danmuji:autoupdate`改成`registry.cn-hangzhou.aliyuncs.com/zzcabc/danmuji:autoupdate` 即可使用阿里镜像仓库
@@ -76,6 +79,7 @@ docker run -d \
     --name danmuji \
     --dns=223.5.5.5 \
     -p 本机端口:23333 \
+    -e GITHUB_PROXY="https://ghproxy.com/" (将在2.5.0版本之后启用，自定义GitHub代理域名) \
     -e JAVA_OPTS="-Xms64m -Xmx128m" \
     -e JAVA_OPTS2="" (将在2.5.0版本之后启用，具体看映射配置说明的表格)  \
     -v 本机路径:/danmuji/Danmuji_log \
