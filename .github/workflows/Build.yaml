@@ -60,17 +60,17 @@ jobs:
           AUTO_UPDATE_TAG="${{ secrets.DOCKERHUB_USERNAME }}/${IMAGE_NAME}:autoupdate"
           AUTO_UPDATE_ALI="${ALI_ADD}/${{ secrets.ALIYUN_NAMESPACES }}/${IMAGE_NAME}:autoupdate"
 
-          echo ::set-output name=github_version::${GITHUB_VERSION}
-          echo ::set-output name=dockerhub_version::${DOCKERHUB_VERSION}
+          echo "github_version=${GITHUB_VERSION}" >> $GITHUB_OUTPUT
+          echo "dockerhub_version=${DOCKERHUB_VERSION}" >> $GITHUB_OUTPUT
 
-          echo ::set-output name=tag_version::${TAG_VERSION}
-          echo ::set-output name=tag_latest::${TAG_LATEST}
-          
-          echo ::set-output name=ali_version::${ALI_VERSION}
-          echo ::set-output name=ali_latest::${ALI_LATEST}
+          echo "tag_version=${TAG_VERSION}" >> $GITHUB_OUTPUT
+          echo "tag_latest=${TAG_LATEST}" >> $GITHUB_OUTPUT
+        
+          echo "ali_version=${ALI_VERSION}" >> $GITHUB_OUTPUT
+          echo "ali_latest=${ALI_LATEST}" >> $GITHUB_OUTPUT
 
-          echo ::set-output name=auto_update_tag::${AUTO_UPDATE_TAG}
-          echo ::set-output name=auto_update_ali::${AUTO_UPDATE_ALI}
+          echo "auto_update_tag=${AUTO_UPDATE_TAG}" >> $GITHUB_OUTPUT
+          echo "auto_update_ali=${AUTO_UPDATE_ALI}" >> $GITHUB_OUTPUT
 
       - name: Set up QEMU
         if: ${{ steps.prepare.outputs.dockerhub_version != steps.prepare.outputs.github_version || github.event.inputs.Forced == 'true' }}
